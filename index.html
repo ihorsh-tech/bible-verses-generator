@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Біблійні вірші - Генератор духовних цитат</title>
-    <meta name="description" content="Генератор випадкових біблійних віршів українською мовою. 30 натхненних цитат з Біблії для щоденного читання та роздумів.">
-    <meta name="keywords" content="біблія, вірші, українська, генератор, цитати, духовність">
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-    
+    <title>Біблійні вірші</title>
     <style>
         * {
             margin: 0;
@@ -98,27 +94,6 @@
         button:active {
             transform: translateY(0);
         }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .verse-text {
-                font-size: 1.1em;
-            }
-        }
     </style>
 </head>
 <body>
@@ -132,13 +107,7 @@
             <div class="verse-reference"></div>
         </div>
         
-        <button onclick="getRandomVerse()" aria-label="Отримати новий біблійний вірш">
-            Отримати вірш
-        </button>
-        
-        <div class="footer">
-            <p>30 натхненних біблійних віршів українською мовою</p>
-        </div>
+        <button onclick="getRandomVerse()">Отримати вірш</button>
     </div>
 
     <script>
@@ -276,13 +245,6 @@
             verseText.classList.remove('placeholder');
             verseReference.textContent = verse.reference;
         }
-
-        // Додаємо можливість отримати вірш натисканням Enter
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                getRandomVerse();
-            }
-        });
     </script>
 </body>
 </html>
