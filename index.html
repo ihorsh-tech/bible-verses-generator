@@ -1,1 +1,288 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Біблійні вірші - Генератор духовних цитат</title>
+    <meta name="description" content="Генератор випадкових біблійних віршів українською мовою. 30 натхненних цитат з Біблії для щоденного читання та роздумів.">
+    <meta name="keywords" content="біблія, вірші, українська, генератор, цитати, духовність">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .verse-container {
+            background: rgba(248, 249, 250, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-left: 5px solid #a8c8ec;
+        }
+
+        .verse-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .verse-reference {
+            font-weight: bold;
+            color: #7b9bd8;
+            font-size: 1.1em;
+        }
+
+        .placeholder {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        button {
+            background: linear-gradient(45deg, #a8c8ec, #b8d4f0);
+            color: #4a5568;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(168, 200, 236, 0.3);
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(168, 200, 236, 0.4);
+            background: linear-gradient(45deg, #9abce6, #aac9ed);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .verse-text {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Біблійні вірші ✨</h1>
+        
+        <div class="verse-container">
+            <div class="verse-text placeholder">
+                Натисніть кнопку, щоб отримати біблійний вірш
+            </div>
+            <div class="verse-reference"></div>
+        </div>
+        
+        <button onclick="getRandomVerse()" aria-label="Отримати новий біблійний вірш">
+            Отримати вірш
+        </button>
+        
+        <div class="footer">
+            <p>30 натхненних біблійних віршів українською мовою</p>
+        </div>
+    </div>
+
+    <script>
+        const verses = [
+            {
+                text: "Бо так Бог полюбив світ, що дав Сина Свого Єдинородного, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.",
+                reference: "Івана 3:16"
+            },
+            {
+                text: "Можу все через Христа, що мене зміцняє.",
+                reference: "Филип'ян 4:13"
+            },
+            {
+                text: "Господь — Пастир мій, не буду нужденним.",
+                reference: "Псалом 23:1"
+            },
+            {
+                text: "Не лякайся, бо Я з тобою, не дивись по сторонах, бо Я — твій Бог! Зміцню тебе, і допоможу тобі, і підтримаю тебе правицею справедливости Своєї!",
+                reference: "Ісаї 41:10"
+            },
+            {
+                text: "А ми знаємо, що тим, хто любить Бога, усе помагає на добре, тим, хто покликані за Його наміром.",
+                reference: "Римлян 8:28"
+            },
+            {
+                text: "Надію покладіть на Господа, і Він вас підтримає, не дасть Він ніколи захитатися праведному!",
+                reference: "Псалом 55:22"
+            },
+            {
+                text: "Благодаттю бо спасені ви через віру, і це не від вас — Божий то дар!",
+                reference: "Ефесян 2:8"
+            },
+            {
+                text: "Покладіть на Господа всю турботу свою, бо Він дбає про вас!",
+                reference: "1 Петра 5:7"
+            },
+            {
+                text: "Радійтеся в Господі завжди! Ще раз кажу: радійтеся!",
+                reference: "Филип'ян 4:4"
+            },
+            {
+                text: "Шукайте ж найперш Царства Божого й правди Його, — а все те вам додасться.",
+                reference: "Матвія 6:33"
+            },
+            {
+                text: "Хто на Бога надію складає, того милість Господня оточує.",
+                reference: "Псалом 32:10"
+            },
+            {
+                text: "Прийдіть до Мене всі втомлені й обтяжені, і Я заспокою вас!",
+                reference: "Матвія 11:28"
+            },
+            {
+                text: "Господь близький до всіх, хто кличе Його, до всіх, хто кличе Його правдиво.",
+                reference: "Псалом 145:18"
+            },
+            {
+                text: "Любов довготерпелива, любов лагідна, не заздрить любов, не чваниться, не надимається.",
+                reference: "1 Коринтян 13:4"
+            },
+            {
+                text: "Нові небеса й нову землю за Його обітницею ми очікуємо, що в них правда мешкає.",
+                reference: "2 Петра 3:13"
+            },
+            {
+                text: "Господь буде битися за вас, а ви мовчіть!",
+                reference: "Вихід 14:14"
+            },
+            {
+                text: "Бо знаю Я наміри, що маю щодо вас, — говорить Господь, — наміри миру, а не на зло, щоб дати вам майбутність та надію.",
+                reference: "Єремії 29:11"
+            },
+            {
+                text: "Хай не лякається серце ваше! Віруйте в Бога, і в Мене віруйте!",
+                reference: "Івана 14:1"
+            },
+            {
+                text: "І Бог усякої благодаті, що покликав нас до вічної слави Своєї в Христі Ісусі, Сам вас удосконалить, утвердить, зміцнить, заснує, трохи поборовшись.",
+                reference: "1 Петра 5:10"
+            },
+            {
+                text: "Мир залишаю вам, Мир Свій даю вам. Не так, як світ дає, Я даю вам. Хай не лякається серце ваше і не страхається!",
+                reference: "Івана 14:27"
+            },
+            {
+                text: "Коли я боюся, то на Тебе надіюся.",
+                reference: "Псалом 56:3"
+            },
+            {
+                text: "Будьте поводженням своїм поміж поганами добрі, щоб у тому, у чому вони на вас наговорюють, як на злочинців, вони через добрі діла ваші, що їх бачать, прославили Бога в день відвідин.",
+                reference: "1 Петра 2:12"
+            },
+            {
+                text: "Навчи мене, Господи, дороги Твоєї, ходитиму правдою Твоєю. Об'єднай моє серце до страху Йменню Твоєму!",
+                reference: "Псалом 86:11"
+            },
+            {
+                text: "Отож, узявши весь обладунок Божий, зможете протистояти в день лихий, і, все звершивши, встояти.",
+                reference: "Ефесян 6:13"
+            },
+            {
+                text: "Тому й скажу: усе, про що молитеся й просите, — віруйте, що взяли, і станеться вам!",
+                reference: "Марка 11:24"
+            },
+            {
+                text: "Господь твій Бог серед тебе, Силач, що рятує! Радітиме Він над тобою утіхою, замовкне в любові Своїй, буде тішитися над тобою співом!",
+                reference: "Софонії 3:17"
+            },
+            {
+                text: "Старий чоловік наш розп'ятий з Ним, щоб знищилось тіло гріховне, щоб більше не служити нам гріхові.",
+                reference: "Римлян 6:6"
+            },
+            {
+                text: "Адже не дав нам Бог духа боягузтва, але сили, і любові, і розважливости.",
+                reference: "2 Тимофія 1:7"
+            },
+            {
+                text: "Тож підкоряйтеся Богові, противтеся дияволові — і втече він від вас!",
+                reference: "Якова 4:7"
+            },
+            {
+                text: "Хваліть Господа, бо Він добрий, бо навіки милість Його!",
+                reference: "Псалом 107:1"
+            }
+        ];
+
+        function getRandomVerse() {
+            const randomIndex = Math.floor(Math.random() * verses.length);
+            const verse = verses[randomIndex];
+            
+            const verseText = document.querySelector('.verse-text');
+            const verseReference = document.querySelector('.verse-reference');
+            
+            verseText.textContent = `"${verse.text}"`;
+            verseText.classList.remove('placeholder');
+            verseReference.textContent = verse.reference;
+        }
+
+        // Додаємо можливість отримати вірш натисканням Enter
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                getRandomVerse();
+            }
+        });
+    </script>
+</body>
+</html>
