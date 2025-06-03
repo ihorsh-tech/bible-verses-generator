@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Вірш дня</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <div class="container">
-    <h1>📖 Вірш дня</h1>
-    <blockquote id="verse">Завантаження...</blockquote>
-    <button id="newVerse">Показати інший</button>
-  </div>
-  <script src="js/app.js"></script>
-</body>
-</html>
+fetch('verses.json')
+  .then(res => res.json())
+  .then(verses => {
+    const verseEl = document.getElementById('verse');
+    const btn = document.getElementById('newVerse');
 
+    function showRandomVerse() {
+      const random = verses[Math.floor(Math.random() * verses.length)];
+      verseEl.textContent = random;
+    }
+
+    btn.addEventListener('click', showRandomVerse);
+    showRandomVerse(); // показати одразу при завантаженні
+  });
